@@ -72,21 +72,21 @@ class AssetMeta:
 
     def appimage_name(self):
         '''Returns Python AppImage name'''
-        return format_appimage_name(self.abi, self., self.tag)
+        return format_appimage_name(self.abi, self.version, self.tag)
 
     def formated_tag(self):
         '''Returns formated manylinux tag'''
         return format_tag(self.tag)
 
-    def previous_(self):
-        '''Returns previous '''
+    def previous_version(self):
+        '''Returns previous version'''
         if self.asset:
             return self.asset.name[6:-9].split('-', 1)[0]
 
     def release_tag(self):
         '''Returns release git tag'''
-         = self..rsplit('.', 1)[0]
-        return f'python{}'
+        version = self.version.rsplit('.', 1)[0]
+        return f'python{version}'
 
 
 def update(args):
@@ -130,7 +130,7 @@ def update(args):
     assets = defaultdict(dict)
     n_assets = 0
     for release in repo.get_releases():
-        if release.tag_name == 'python3.11':
+        if release.tag_name.startswith('python'):
             meta = ReleaseMeta(
                 tag = release.tag_name,
                 release = release
@@ -162,7 +162,9 @@ def update(args):
                 continue
 
             pythons = list_pythons(tag)
-            for (abi, ) in pythons:
+            for (abi, version) in pythons:
+                if version != "3.11.12":
+                    continue
                 try:
                     meta = assets[tag][abi]
                 except KeyError:
