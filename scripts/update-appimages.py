@@ -16,8 +16,8 @@ from python_appimage.utils.manylinux import format_appimage_name, format_tag
 
 
 # Build matrix
-ARCHS = ('x86_64', 'i686')
-MANYLINUSES = ('1', '2010', '2014', '2_24', '2_28')
+ARCHS = ('x86_64',)
+MANYLINUSES = ('2_28',)
 EXCLUDES = ('2_28_i686',)
 
 # Build directory for AppImages
