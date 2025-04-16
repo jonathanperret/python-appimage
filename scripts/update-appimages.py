@@ -122,7 +122,7 @@ def update(args):
 
     auth = Auth.Token(token)
     session = Github(auth=auth)
-    repo = session.get_repo('niess/python-appimage')
+    repo = session.get_repo('jonathanperret/python-appimage')
 
     # Fetch currently released AppImages
     log('FETCH', 'currently released AppImages')
